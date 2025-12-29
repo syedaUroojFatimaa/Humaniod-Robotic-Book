@@ -1,0 +1,129 @@
+# API Contracts: Physical AI & Humanoid Robotics Course
+
+## Course Content API
+
+### GET /api/course/modules
+Retrieve all course modules with their basic information.
+
+**Request**:
+- Method: GET
+- Path: /api/course/modules
+- Headers: None required
+
+**Response**:
+- Status: 200 OK
+- Content-Type: application/json
+- Body:
+```json
+{
+  "modules": [
+    {
+      "id": "module-1-ros2",
+      "title": "The Robotic Nervous System (ROS 2)",
+      "description": "Middleware for humanoid robot control",
+      "order": 1,
+      "chapters_count": 3,
+      "estimated_duration_hours": 10
+    },
+    {
+      "id": "module-2-gazebo",
+      "title": "The Digital Twin (Gazebo & Unity)",
+      "description": "Physics simulation and environment building",
+      "order": 2,
+      "chapters_count": 3,
+      "estimated_duration_hours": 12
+    }
+  ]
+}
+```
+
+### GET /api/course/modules/{module_id}/chapters
+Retrieve all chapters for a specific module.
+
+**Request**:
+- Method: GET
+- Path: /api/course/modules/{module_id}/chapters
+- Headers: None required
+
+**Response**:
+- Status: 200 OK
+- Content-Type: application/json
+- Body:
+```json
+{
+  "moduleId": "module-1-ros2",
+  "chapters": [
+    {
+      "id": "intro-to-ros2-for-physical-ai",
+      "title": "Introduction to ROS 2 for Physical AI",
+      "order": 1,
+      "estimated_duration_minutes": 45,
+      "learning_objectives": [
+        "Understand what ROS 2 is",
+        "Explain why ROS 2 matters for humanoid robots",
+        "Describe DDS concepts"
+      ]
+    }
+  ]
+}
+```
+
+### GET /api/course/chapters/{chapter_id}
+Retrieve content for a specific chapter.
+
+**Request**:
+- Method: GET
+- Path: /api/course/chapters/{chapter_id}
+- Headers: None required
+
+**Response**:
+- Status: 200 OK
+- Content-Type: application/json
+- Body:
+```json
+{
+  "id": "intro-to-ros2-for-physical-ai",
+  "title": "Introduction to ROS 2 for Physical AI",
+  "module_id": "module-1-ros2",
+  "content": "# Introduction to ROS 2 for Physical AI\n\nROS 2 (Robot Operating System 2) is ...",
+  "learning_objectives": [
+    "Understand what ROS 2 is",
+    "Explain why ROS 2 matters for humanoid robots",
+    "Describe DDS concepts"
+  ],
+  "prerequisites": [
+    "Basic programming knowledge",
+    "Understanding of robotics concepts"
+  ],
+  "estimated_duration_minutes": 45
+}
+```
+
+### POST /api/course/progress
+Record student progress for a chapter.
+
+**Request**:
+- Method: POST
+- Path: /api/course/progress
+- Headers: Content-Type: application/json
+- Body:
+```json
+{
+  "student_id": "student-123",
+  "chapter_id": "intro-to-ros2-for-physical-ai",
+  "completed": true,
+  "assessment_score": 85
+}
+```
+
+**Response**:
+- Status: 201 Created
+- Content-Type: application/json
+- Body:
+```json
+{
+  "success": true,
+  "progress_id": "progress-456",
+  "timestamp": "2025-12-24T10:30:00Z"
+}
+```
